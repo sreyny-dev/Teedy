@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<ruleset name="myruleset"
+         xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
+    <description>
+        This is a custom ruleset that includes rules related to LoC, CC, WMC, CBO, and LCOM.
+    </description>
+
+    <!-- Cyclomatic Complexity -->
+    <!--    <rule ref="category/java/codestyle.xml/CyclomaticComplexity"/>-->
+    <rule ref="category/java/design.xml/CyclomaticComplexity"/>
+
+
+    <!-- Example placeholders for other metrics as direct PMD rules might not exist -->
+    <rule ref="category/java/design.xml/ExcessiveMethodLength"/>
+    <rule ref="category/java/design.xml/ExcessiveClassLength"/>
+
+    <!-- Weighted Methods per Class (WMC) - Placeholder -->
+    <rule ref="category/java/design.xml/NPathComplexity"/>
+
+    <!-- Coupling Between Objects (CBO) -->
+    <rule ref="category/java/design.xml/CouplingBetweenObjects"/>
+
+    <!-- Lack of Cohesion in Methods (LCOM) - Placeholder -->
+    <rule ref="category/java/design.xml/GodClass"/>
+    <!--loose coupling-->
+    <rule ref="category/java/bestpractices.xml/LooseCoupling" />
+
+</ruleset>

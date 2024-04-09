@@ -117,6 +117,32 @@
         <artifactId>jetty-maven-plugin</artifactId>
         <version>${org.eclipse.jetty.jetty-maven-plugin.version}</version>
       </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <version>3.21.2</version>
+<!--        <groupId>org.apache.maven.plugins</groupId>-->
+<!--        <artifactId>maven-pmd-plugin</artifactId>-->
+<!--        <version>3.21.2</version> &lt;!&ndash; or use version from pluginManagement &ndash;&gt;-->
+        <configuration>
+          <!-- failOnViolation is actually true by default, but can be disabled -->
+          <failOnViolation>false</failOnViolation>
+          <!-- printFailingErrors is pretty useful -->
+          <printFailingErrors>true</printFailingErrors>
+          <rulesets>
+            <ruleset>practice-answer.xml</ruleset>
+          </rulesets>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
     </plugins>
   </build>
         
@@ -500,6 +526,12 @@
         <groupId>com.levigo.jbig2</groupId>
         <artifactId>levigo-jbig2-imageio</artifactId>
         <version>${com.levigo.jbig2.levigo-jbig2-imageio.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <version>3.21.2</version>
       </dependency>
 
     </dependencies>
