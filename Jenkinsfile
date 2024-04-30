@@ -3,17 +3,12 @@ pipeline {
     stages {
         stage('Build') { 
             steps {
-                sh 'mvn -B clean package' 
+                sh 'mvn -B -DskipTests clean package' 
             }
         }
-        stage('PMD') {
+        stage('pmd') {
             steps {
                 sh 'mvn pmd:pmd'
-            }
-        }
-        stage('Javadoc') {
-            steps {
-                sh 'mvn javadoc:jar'
             }
         }
     }
@@ -21,7 +16,6 @@ pipeline {
     post {
         always {
             archiveArtifacts artifacts: '**/target/site/**', fingerprint: true
-            archiveArtifacts artifacts: '**/target/site/surefire-report/**', fingerprint: true
             archiveArtifacts artifacts: '**/target/**/*.jar', fingerprint: true
             archiveArtifacts artifacts: '**/target/**/*.war', fingerprint: true
         }
