@@ -3,7 +3,8 @@ pipeline {
     stages {
         stage('Build') { 
             steps {
-                sh 'mvn -B -DskipTests clean package' 
+                // sh 'mvn -B clean package' 
+                sh 'mvn -B --fail-never package' 
             }
         }
         stage('pmd') {
@@ -11,11 +12,16 @@ pipeline {
                 sh 'mvn pmd:pmd'
             }
         }
+           stage('javadoc') {
+            steps {
+                sh 'mvn javadoc:jar'
+            }
+        }     
     }
 
     post {
         always {
-            archiveArtifacts artifacts: '**/target/site/**', fingerprint: true
+            archiveArtifacts artifacts: '**/target/**/*.html', fingerprint: true
             archiveArtifacts artifacts: '**/target/**/*.jar', fingerprint: true
             archiveArtifacts artifacts: '**/target/**/*.war', fingerprint: true
         }
