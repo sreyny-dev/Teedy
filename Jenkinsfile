@@ -16,7 +16,12 @@ pipeline {
             steps {
                 sh 'mvn javadoc:jar'
             }
-        }     
+        }   
+                   stage('Test Report') {
+            steps {
+                sh 'mvn surefire-report:report'
+            }
+        }   
     }
 
     post {
