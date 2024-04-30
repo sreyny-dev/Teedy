@@ -16,7 +16,7 @@ pipeline {
                 }
             }
         }
-        stage('Static Code Analysis') {
+        stage('PMD') {
             steps {
                 sh 'mvn pmd:pmd'
             }
