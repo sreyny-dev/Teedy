@@ -29,6 +29,7 @@ public class GroupDao {
      * @param name Name
      * @return Group
      */
+
     public Group getActiveByName(String name) {
         EntityManager em = ThreadLocalContext.get().getEntityManager();
         Query q = em.createQuery("select g from Group g where g.name = :name and g.deleteDate is null");
