@@ -35,8 +35,8 @@ pipeline {
                     // Correctly run the container using the dockerImage object
                     def runArgs = '-d -p 8089:8080'
                     def container1 = dockerImage.run(runArgs)
-                    def container2 = dockerImage.run(runArgs.replace("8089", "8083"))
-                    def container3 = dockerImage.run(runArgs.replace("8089", "8084"))
+                    def container2 = dockerImage.run(runArgs.replace("8089", "8088"))
+        
 
                     // Optionally, you can manage the lifecycle of these containers as needed
                     // sleep 30
