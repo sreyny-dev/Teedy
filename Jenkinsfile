@@ -1,34 +1,50 @@
 pipeline {
     agent any
     stages {
-        stage('Build') { 
+        // Package the application using Maven
+        stage('Package') {
             steps {
-                // sh 'mvn -B clean package' 
-                sh 'mvn -B --fail-never package' 
+                // Checkout code from the main branch
+                checkout scm
+                // Run Maven to package the application, skipping unit tests
+                sh 'mvn -B -DskipTests clean package'
             }
         }
-        stage('pmd') {
+        // Build the Docker image
+        stage('Building image') {
             steps {
-                sh 'mvn pmd:pmd'
+                script {
+                    dockerImage = docker.build("sreynytha/teedy:latest")
+                }
             }
         }
-           stage('javadoc') {
+        // Upload the Docker image to Docker Hub
+        stage('Upload image') {
             steps {
-                sh 'mvn javadoc:jar'
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', '12113053') {
+                        dockerImage.push("latest")
+                    }
+                }
             }
-        }   
-                   stage('Test Report') {
+        }
+        // Run Docker containers
+        stage('Run containers') {
             steps {
-                sh 'mvn surefire-report:report'
-            }
-        }   
-    }
+                script {
+                    // Correctly run the container using the dockerImage object
+                    def runArgs = '-d -p 8082:8080'
+                    def container1 = dockerImage.run(runArgs)
+                    def container2 = dockerImage.run(runArgs.replace("8082", "8083"))
+                    def container3 = dockerImage.run(runArgs.replace("8082", "8084"))
 
-    post {
-        always {
-            archiveArtifacts artifacts: '**/target/**/*.html', fingerprint: true
-            archiveArtifacts artifacts: '**/target/**/*.jar', fingerprint: true
-            archiveArtifacts artifacts: '**/target/**/*.war', fingerprint: true
+                    // Optionally, you can manage the lifecycle of these containers as needed
+                    // sleep 30
+                    // container1.stop()
+                    // container2.stop()
+                    // container3.stop()
+                }
+            }
         }
     }
 }
