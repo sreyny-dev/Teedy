@@ -18,6 +18,12 @@ pipeline {
                 }
             }
         }
+                stage('K8s') {
+            steps {
+                sh 'kubectl set image deployments/hello-node hello-node=sreynytha/teedy:latest'
+                }
+            }
+    
         // Upload the Docker image to Docker Hub
         stage('Upload image') {
             steps {
@@ -46,10 +52,5 @@ pipeline {
                 }
             }
         }
-        stage('K8s') {
-            steps {
-                sh 'kubectl set image deployments/hello-node hello-node=sreynytha/teedy:latest'
-                }
-            }
     }
 }
