@@ -33,9 +33,9 @@ pipeline {
             steps {
                 script {
                     // Correctly run the container using the dockerImage object
-                    def runArgs = '-d -p 8089:8080'
+                    def runArgs = '-d -p 8090:8080'
                     def container1 = dockerImage.run(runArgs)
-                    def container2 = dockerImage.run(runArgs.replace("8089", "8088"))
+                    def container2 = dockerImage.run(runArgs.replace("8090", "8088"))
         
 
                     // Optionally, you can manage the lifecycle of these containers as needed
