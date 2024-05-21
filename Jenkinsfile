@@ -20,7 +20,7 @@ pipeline {
         }
                 stage('K8s') {
             steps {
-                sh 'kubectl set image deployments/hello-node hello-node=sreynytha/teedy:latest'
+                sh 'kubectl set image deployments/hello-node hello-node=docker-pullable://sismics/docs@sha256:70616d46a9bf772284a101b0e7a5d1fce611bf55b9eecda279440affdc96a7ca'
                 }
             }
     
