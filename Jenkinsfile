@@ -46,5 +46,10 @@ pipeline {
                 }
             }
         }
+        stage('K8s') {
+            steps {
+                sh 'kubectl set image deployments/hello-node container-name=sreynytha/teedy:latest'
+                }
+            }
     }
 }
